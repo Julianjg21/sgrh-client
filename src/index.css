@@ -1,0 +1,83 @@
+body {
+  font-family: robot;
+}
+
+/*MODULE LOGIN*/
+/*LoginButtons.js*/
+.btn-resetPassword {
+  position: relative;
+  top: 28.5rem;
+}
+
+/*FormLogin*/
+.label-loginText {
+  font-size: 20px;
+}
+
+/*LoginLayour*/
+.div-footer {
+  font-weight: bold;
+}
+.footer-icons {
+  position: relative;
+  top: 8px;
+  left: 5px;
+}
+
+/*LoginReset*/
+
+.h1-resetPasswordForm {
+  font-size: 24px;
+}
+
+.label-resetPasswordForm {
+  font-size: 17px;
+  font-weight: normal;
+}
+
+@media (max-width: 768px) {
+  .col-md-6- {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-left: 26px;
+  }
+  .window-reset {
+    width: 97%;
+  }
+  .windowAler {
+    width: 97%;
+  }
+}
+
+/*END LOGIN FORM */
+
+/*MODULE MAIN MENU*/
+
+/*Main menu layout*/
+
+.text-logo {
+  font-size: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.textLogo-span {
+  margin-left: 20px;
+}
+
+/*Options Menu*/
+
+.btn-optionsMenu {
+  width: 100%;
+  border-color: rgb(255, 192, 0);
+}
+.div-openOptions {
+  height: 25px;
+}
+
+/*Module window*/
+
+.div-moduleWindow {
+  border: 2px solid rgb(255, 192, 0);
+  border-radius: 8px;
+}
