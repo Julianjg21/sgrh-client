@@ -48,7 +48,7 @@ class UserManagement extends React.Component {
       accountNumber: this.state.accountNumber,
     };
 
-    fetch("http://localhost:3080/menu/createUsers", {
+    fetch("https://sgrh-server-128231344b73.herokuapp.com/menu/datos/createUsers", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",

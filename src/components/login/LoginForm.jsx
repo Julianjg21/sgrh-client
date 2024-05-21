@@ -58,7 +58,7 @@ class LoginForm extends React.Component {
       password: this.state.password.toString(),
     };
     //POST method that sends the data to the server
-    fetch("http://localhost:3080/api/datos", {
+    fetch("https://sgrh-server-128231344b73.herokuapp.com/api/datos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ class LoginForm extends React.Component {
         //once the data sent was verified, the jwt security token was received
         const token = data.token; //save the received token
         //GET method that sends the token to the middleware that verifies the validity of the token and receives the confirmation
-        fetch("http://localhost:3080/menu", {
+        fetch("https://sgrh-server-128231344b73.herokuapp.com/menu", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
