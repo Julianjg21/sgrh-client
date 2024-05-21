@@ -48,7 +48,7 @@ class UserManagement extends React.Component {
       accountNumber: this.state.accountNumber,
     };
 
-    fetch("https://sgrh-server-128231344b73.herokuapp.com/menu/datos/createUsers", {
+    fetch("https://sgrh-server-128231344b73.herokuapp.com/menu/createUsers", {
       method: "Post",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +57,7 @@ class UserManagement extends React.Component {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok", response);
         }
         return response.json();
       })
