@@ -1,7 +1,7 @@
 import React from "react";
 import UserSearch from "../UserSearch";
 import WindowAlert from "../../../miniComponents/WindowAlert";
-
+import API_ROUTES from "../../../../configs/ApiEndpoints.mjs";
 class UserManagement extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +22,12 @@ class UserManagement extends React.Component {
     //bind this in the function
     this.handlebuttonState = this.handlebuttonState.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleWindowAlert = this.handleWindowAlert.bind(this);
+  }
+  handleWindowAlert() {
+    this.setState({
+      windowAlert: false,
+    });
   }
 
   //function activates the respective window
@@ -34,22 +40,12 @@ class UserManagement extends React.Component {
   //function that send the form information
   handleSubmit(event) {
     event.preventDefault(); //prevents page reloading
+   
 
-    const data = {
-      userNames: this.state.userNames,
-      lastNames: this.state.lastNames,
-      typeIdentification: this.state.typeIdentification,
-      identification: this.state.identification,
-      phoneNumber: this.state.phoneNumber,
-      birthdate: this.state.birthdate,
-      email: this.state.email,
-      employeeRole: this.state.employeeRole,
-      bank: this.state.bank,
-      accountNumber: this.state.accountNumber,
-    };
+    const data = this.state;
 
-    fetch("https://sgrh-server-128231344b73.herokuapp.com/menu/createUsers", {
-      method: "Post",
+    fetch(API_ROUTES.createUser , {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -81,14 +77,18 @@ class UserManagement extends React.Component {
         <div className="container">
           <div>
             {this.state.windowAlert && (
-              <WindowAlert
-                buttonText="OK"
-                infoText="Usuario creado con exito!!"
-                borderColor="border-success"
-              />
+             <div className="container  position-fixed alert-menu"> <WindowAlert
+             buttonText="OK"
+             infoText="Usuario creado con exito!!"
+                dimensions="position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-success border-2 windowAler"
+                disable={this.handleWindowAlert}
+           /> </div>
             )}
           </div>
 
+          
+
+         
           <h1>Datos Personales</h1>
           <div className="container fluid p-0 mt-4">
             <form onSubmit={this.handleSubmit}>
@@ -315,7 +315,7 @@ class UserManagement extends React.Component {
     } else {
       return (
         <div>
-          <UserSearch />
+          <UserSearch component="editUser"/>
         </div>
       );
     }

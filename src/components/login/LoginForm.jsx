@@ -2,6 +2,7 @@ import React from "react";
 import LogginButtons from "./LoginButtons";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
+import API_ROUTES from "../../configs/ApiEndpoints.mjs";
 import { changeStateVerification } from "../../redux/slices/login/authLoginSlice";
 import WindowAlert from "../miniComponents/WindowAlert";
 
@@ -58,7 +59,7 @@ class LoginForm extends React.Component {
       password: this.state.password.toString(),
     };
     //POST method that sends the data to the server
-    fetch("https://sgrh-server-128231344b73.herokuapp.com/api/datos", {
+    fetch(API_ROUTES.sendKeysLogin, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -67,7 +68,7 @@ class LoginForm extends React.Component {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Error sending data");
+          throw new Error("Error sending data", response);
         }
         return response.json();
       })
@@ -75,7 +76,7 @@ class LoginForm extends React.Component {
         //once the data sent was verified, the jwt security token was received
         const token = data.token; //save the received token
         //GET method that sends the token to the middleware that verifies the validity of the token and receives the confirmation
-        fetch("https://sgrh-server-128231344b73.herokuapp.com/menu", {
+        fetch(API_ROUTES.sendTokenJwt, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -132,12 +133,12 @@ class LoginForm extends React.Component {
               buttonText="Aceptar"
               infoText="Error, Contraseña o usuario ingresados son incorrectos!!"
               borderColor="border-danger"
-             
+              dimensions="container  position-fixed top-50   start-50  translate-middle col-lg-3 h-25 bg-white d-flex flex-column justify-content-center align-items-center border rounded windowAler border-2  border-danger  p-0"
             />
           )}
         </div>
         <div
-          className="container bg-white border rounded  border-warning  mt-4 mb-4 col-5 p-0 col-md-6-"
+          className="container bg-white border rounded  border-danger  mt-4 mb-4 col-5 p-0 col-md-6-"
           id="col-md-6"
         >
           <LogginButtons

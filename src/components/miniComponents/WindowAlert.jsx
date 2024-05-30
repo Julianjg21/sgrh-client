@@ -13,6 +13,9 @@ class WindowAlert extends React.Component {
     this.setState({
       windowState: false,
     });
+    if (this.props.disable) {
+      this.props.disable();
+    }
   }
 
   render() {
@@ -24,9 +27,7 @@ class WindowAlert extends React.Component {
     }
 
     return (
-      <div
-        className={`container  position-fixed top-50   start-50  translate-middle col-lg-3 h-25 bg-white d-flex flex-column justify-content-center align-items-center border rounded windowAler ${this.props.borderColor}  p-0`}
-      >
+      <div className={`container  ${this.props.dimensions} windowAler p-0`}>
         <div className="mb-3 ">
           <p>
             {" "}
