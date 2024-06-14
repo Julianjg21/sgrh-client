@@ -2,6 +2,7 @@ import "./App.css";
 import React, { Component } from "react";
 import LoginPage from "./pages/LoginPage";
 import MainMenuLayout from "./layouts/MainMenu/MainMenuLayout";
+import API_ROUTES from "./configs/ApiEndpoints.mjs";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,27 +13,62 @@ import { connect } from "react-redux";
 import { changeStateVerification } from "./redux/slices/login/authLoginSlice";
 
 class App extends Component {
+  // Initial state of the component
+  state = {
+    loading: true,
+  };
+
+  // Lifecycle method that runs after the component has been rendered
+  componentDidMount() {
+    const token = localStorage.getItem("token"); // Get token from localStorage
+
+    // If token is not found, update state to stop loading and log error
+    if (!token) {
+      this.setState({ loading: false });
+      return;
+    }
+    // Fetch request to verify token
+    fetch(API_ROUTES.sendTokenJwt, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Pass token in Authorization header
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Invalid token"); // Handle invalid token response
+        } else {
+          this.props.changeStateVerification(true); // Dispatch action to update state verification
+        }
+      })
+      .catch((error) => {
+        console.error(error); // Log any errors
+      })
+      .finally(() => {
+        this.setState({ loading: false }); // Update state to stop loading regardless of the result
+      });
+  }
+
   render() {
+    // Display loading indicator while waiting for token verification
+    if (this.state.loading) {
+      return <div>Loading...</div>;
+    }
+
+    // Render routes based on state verification
     return (
       <Router>
-        {/* Define application routes */}
         <div className="App">
           <Routes>
-            {/* Ruta por defecto */}
-            <Route
-              path="*"
-              element={<LoginPage />} //Component to render when it does not match any other path
-            />
-
-            {/* Ruta protegida */}
+            <Route path="/" element={<LoginPage />} />
             <Route
               path="/menu"
               element={
-                //Render the MainMenuLayout component if the verification status is true, otherwise redirect the user to the login page
-                this.props.stateVerification ? (
+                this.props.stateVerification ? ( // Conditional rendering based on verification state
                   <MainMenuLayout />
                 ) : (
-                  <Navigate to="/" />
+                  <Navigate to="/" /> // Redirect to login page if not verified
                 )
               }
             />
@@ -43,17 +79,15 @@ class App extends Component {
   }
 }
 
-//Function that maps portions of Redux state to component props
+// Map state from Redux store to component props
 const mapStateToProps = (state) => ({
-  //Prop that the component will receive, contains the user's verification status
   stateVerification: state.verification.stateVerification,
 });
 
-//Object that maps Redux actions to component props
+// Map dispatch actions to component props
 const mapDispatchToProps = {
-  //Prop that the component will receive, contains the function to change the user's verification status
   changeStateVerification: changeStateVerification,
 };
 
-//Connect the React component to the Redux store, mapping the props and actions
+// Connect component to Redux store and export
 export default connect(mapStateToProps, mapDispatchToProps)(App);

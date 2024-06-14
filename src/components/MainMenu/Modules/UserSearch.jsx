@@ -77,7 +77,7 @@ class UserSearch extends React.Component {
 
           <div className="container fluid p-0 mt-5">
             <form onSubmit={this.handleSubmit}>
-              <div class="row justify-content-md-center">
+              <div className="row justify-content-md-center">
                 <div className="col-4 ">
                   <div className=" flex-column">
                     <label className=" mb-3" htmlFor="buscar-nombre">
@@ -162,7 +162,7 @@ class UserSearch extends React.Component {
               </div>
             </form>
 
-            <div class="row justify-content-md-center mt-4 ">
+            <div className="row justify-content-md-center mt-4 ">
               <div className="col-4 border-top border-dark d-inline-block ">
                 <div className=" flex-column mt-5">
                   <label className="" htmlFor="tipo-area">

@@ -1,38 +1,39 @@
 import React from "react";
-import moment from 'moment';
+import moment from "moment";
 import API_ROUTES from "../../../../configs/ApiEndpoints.mjs";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WindowAlert from "../../../miniComponents/WindowAlert";
 class EditUser extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       windowAlertUpdateUser: false, //this state activate the alert window
       windowAlertDeleteUser: false, //this state activate the alert window
-      windowAlertDeleteUserConfirm:false,
+      windowAlertDeleteUserConfirm: false,
       userNames: this.props.user.userNames,
       lastNames: this.props.user.lastNames,
       typeIdentification: this.props.user.typeIdentification,
       identification: this.props.user.identification,
       phoneNumber: this.props.user.phoneNumber,
-      birthdate: `${moment(this.props.user.birthDate).format('YYYY-MM-DD')}`,
+      birthdate: `${moment(this.props.user.birthDate).format("YYYY-MM-DD")}`,
       email: this.props.user.email,
       employeeRole: this.props.user.employeeRole,
       bank: this.props.user.bank,
       accountNumber: this.props.user.accountNumber,
       userRegistrationId: this.props.user.userRegistrationId,
-    }
-   
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDeleteUser = this.handleDeleteUser.bind(this);
-    this.handleWindowAlertUpdateUser = this.handleWindowAlertUpdateUser.bind(this);
+    this.handleWindowAlertUpdateUser =
+      this.handleWindowAlertUpdateUser.bind(this);
     this.windowAlertDeleteUser = this.windowAlertDeleteUser.bind(this);
     this.handleDeleteUserConfirm = this.handleDeleteUserConfirm.bind(this);
   }
 
   handleDeleteUserConfirm() {
-    this.setState({windowAlertDeleteUserConfirm: true,})
+    this.setState({ windowAlertDeleteUserConfirm: true });
   }
 
   handleWindowAlertUpdateUser() {
@@ -46,142 +47,140 @@ class EditUser extends React.Component {
     });
   }
 
-
   handleSubmit(event) {
     event.preventDefault();
-    
+
     const data = this.state;
 
     fetch(API_ROUTES.EditUser, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-      }, body: JSON.stringify(data)
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok", response);
-      }
-      return response.json();
-    }).then((data) => {
-      console.log(data);
-      if (data.message === "The user has been updated") {
-        this.setState({ windowAlertUpdateUser: true });
-      } else {
-        console.log("error,can't update user");
-      }
+      },
+      body: JSON.stringify(data),
     })
-    .catch((error) => {
-      console.error("Error sending data:", error);
-    });
-
-   }
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok", response);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.message === "The user has been updated") {
+          this.setState({ windowAlertUpdateUser: true });
+        } else {
+          console.log("error,can't update user");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+      });
+  }
 
   handleDeleteUser() {
     this.setState({
-      windowAlertDeleteUserConfirm: false
+      windowAlertDeleteUserConfirm: false,
     });
     const user = this.state;
     fetch(API_ROUTES.EditUser, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-      }, body: JSON.stringify(user)
-    }).then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok", response);
-      }
-      return response.json();
-    }).then((data) => {
-      console.log(data);
-      if (data.message === "the user has been deleted") {
-        this.setState({ windowAlertDeleteUser: true });
-      } else {
-        console.log("error,can't delete user");
-      }
+      },
+      body: JSON.stringify(user),
     })
-    .catch((error) => {
-      console.error("Error sending data:", error);
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok", response);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.message === "the user has been deleted") {
+          this.setState({ windowAlertDeleteUser: true });
+        } else {
+          console.log("error,can't delete user");
+        }
+      })
+      .catch((error) => {
+        console.error("Error sending data:", error);
+      });
   }
-
-
 
   render() {
     return (
       <div className="container">
-
-
-<div>
-            {this.state.windowAlertUpdateUser && (
-             <div className="container  position-fixed alert-menu"> <WindowAlert
-             buttonText="OK"
-             infoText="Usuario Actualizado con exito!!"
+        <div>
+          {this.state.windowAlertUpdateUser && (
+            <div className="container  position-fixed alert-menu">
+              {" "}
+              <WindowAlert
+                buttonText="OK"
+                infoText="Usuario Actualizado con exito!!"
                 dimensions="position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-success border-2 windowAler"
                 disable={this.handleWindowAlertUpdateUser}
-           /> </div>
-            )}
-          </div>
+              />{" "}
+            </div>
+          )}
+        </div>
 
-          <div>
-            {this.state.windowAlertDeleteUser && (
-             <div className="container  position-fixed alert-menu"> <WindowAlert
-             buttonText="OK"
-             infoText="Usuario eliminado con exito!!"
+        <div>
+          {this.state.windowAlertDeleteUser && (
+            <div className="container  position-fixed alert-menu">
+              {" "}
+              <WindowAlert
+                buttonText="OK"
+                infoText="Usuario eliminado con exito!!"
                 dimensions="position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-success border-2 windowAler"
                 disable={this.windowAlertDeleteUser}
-           /> </div>
-            )}
-          </div>
-
-        
-
-
-          <div>
-          {this.state.windowAlertDeleteUserConfirm && (
-            
-            <div className="container  position-fixed alert-menu">             
-<div
-        className="container  position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-danger windowAler windowAler p-0 text-danger   border-2 "
-      >
-        <div className="mb-3 ">
-          <p>
-            {" "}
-            <strong className="error-message">
-              ¿Estas seguro de eliminar este usuario?
-            </strong>{" "}
-          </p>
-        </div>
-        <div className=""></div>
-
-        <div className="mt-2 row">
-
-<div className="col-6"><button
-            className="btn btn-light btn-outline-primary float-start"
-            onClick={this.handleDeleteUser}
-          >
-            Confirmar
-                  </button ></div>
-
-<div className="col-6"><button
-            className="btn btn-light btn-outline-danger "
-                    onClick={() => {
-                      this.setState({
-                        windowAlertDeleteUserConfirm: false
-                      });
-            }}
-          >
-           Cancelar
-          </button></div>
-                  
-          
-                
-          
-        </div>
-      </div>
+              />{" "}
             </div>
-            )}
-          </div>
+          )}
+        </div>
 
+        <div>
+          {this.state.windowAlertDeleteUserConfirm && (
+            <div className="container  position-fixed alert-menu">
+              <div className="container  position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-danger windowAler windowAler p-0 text-danger   border-2 ">
+                <div className="mb-3 ">
+                  <p>
+                    {" "}
+                    <strong className="error-message">
+                      ¿Estas seguro de eliminar este usuario?
+                    </strong>{" "}
+                  </p>
+                </div>
+                <div className=""></div>
+
+                <div className="mt-2 row">
+                  <div className="col-6">
+                    <button
+                      className="btn btn-light btn-outline-primary float-start"
+                      onClick={this.handleDeleteUser}
+                    >
+                      Confirmar
+                    </button>
+                  </div>
+
+                  <div className="col-6">
+                    <button
+                      className="btn btn-light btn-outline-danger "
+                      onClick={() => {
+                        this.setState({
+                          windowAlertDeleteUserConfirm: false,
+                        });
+                      }}
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
 
         <h1>Datos Personales</h1>
         <div className="container fluid p-0 mt-4">
@@ -202,13 +201,11 @@ class EditUser extends React.Component {
                       className="form-control border-0 mx-auto"
                       type="text"
                       placeholder={this.state.userNames}
-                      
                       onChange={(event) =>
                         this.setState({
                           userNames: event.target.value,
                         })
                       }
-                     
                     />
                   </div>
                 </div>
@@ -245,12 +242,17 @@ class EditUser extends React.Component {
                   <label className="text-start" htmlFor="editar-identification">
                     Tipo de Identificación
                   </label>
-                  <select className="form-select" id="editar-identification" onChange={(event) =>
-                        this.setState({
-                          typeIdentification: event.target.value,
-                        })
-                      } value={this.state.typeIdentification}>
-                    <option  value="Cedula de Ciudadanía">
+                  <select
+                    className="form-select"
+                    id="editar-identification"
+                    onChange={(event) =>
+                      this.setState({
+                        typeIdentification: event.target.value,
+                      })
+                    }
+                    value={this.state.typeIdentification}
+                  >
+                    <option value="Cedula de Ciudadanía">
                       Cédula de Ciudadanía
                     </option>
                     <option value="Cedula Extranjera">Cédula Extranjera</option>
@@ -356,7 +358,6 @@ class EditUser extends React.Component {
                           email: event.target.value,
                         })
                       }
-
                     />
                   </div>
                 </div>
@@ -447,7 +448,11 @@ class EditUser extends React.Component {
             <div className="row mt-5">
               <div className="col-1"></div>
               <div className="col-4 p-0 ">
-              <button type="button" onClick={this.handleDeleteUserConfirm} className="mb-5 btn btn-danger btn-outline-secondary text-white w-25 mt-5 float-start">
+                <button
+                  type="button"
+                  onClick={this.handleDeleteUserConfirm}
+                  className="mb-5 btn btn-danger btn-outline-secondary text-white w-25 mt-5 float-start"
+                >
                   Eliminar Usuario{" "}
                 </button>
               </div>
@@ -462,7 +467,6 @@ class EditUser extends React.Component {
               </div>
             </div>
           </form>
-          
         </div>
       </div>
     );

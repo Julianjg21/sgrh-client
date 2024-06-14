@@ -1,15 +1,27 @@
 import React from "react";
 import OptionsMenu from "../../components/MainMenu/OptionsMenu";
 import ModuleWindow from "../../components/MainMenu/ModuleWindow";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class MainMenuLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+  //function to log out the user
+  handleLogout() {
+    localStorage.removeItem("token"); //remove verification token
+    window.location.reload(); //Reload the page
+  }
   render() {
     return (
       //design of the main page
       <div className="container-fluid ">
         <div className="row bg-dark">
-          <div class="col-1">
+          <div className="col-1">
             <h1
               className="text-white text-start  mt-2 text-logo "
               id="text-logo"
@@ -20,6 +32,20 @@ class MainMenuLayout extends React.Component {
                 BAR
               </span>
             </h1>
+          </div>
+          <div className="col-9"></div>
+          <div className="col-2 align-content-center">
+            <button
+              className=" btn btn-dark  border-black  text-light "
+              id="logout"
+              onClick={this.handleLogout}
+            >
+              Cerrar Sesión{" "}
+              <FontAwesomeIcon
+                htmlFor="logout"
+                icon={faArrowRightFromBracket}
+              />
+            </button>
           </div>
         </div>
         <div className="row container-fluid p-0 ">

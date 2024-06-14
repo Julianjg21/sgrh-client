@@ -24,6 +24,7 @@ class LoginForm extends React.Component {
     this.handleStateTypeEmpleado = this.handleStateTypeEmpleado.bind(this);
     this.handleStateTypeAdmin = this.handleStateTypeAdmin.bind(this);
   }
+
   //Select whether you log in as admin or employee
   handleStateTypeEmpleado() {
     this.setState({
@@ -89,9 +90,12 @@ class LoginForm extends React.Component {
             }
             return response.json();
           })
-          .then((menuData) => {
+          .then((response) => {
             //If true is received, set redirectToMenu to true
-            if (menuData === true) {
+            if (response) {
+              //save the token
+              const token = response.token;
+              localStorage.setItem("token", token);
               this.setState({ redirectToMenu: true });
               //confirm entry authorization to activate the protected route
               this.props.changeStateVerification(true);

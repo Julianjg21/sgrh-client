@@ -233,12 +233,12 @@ class UserManagement extends React.Component {
                 </div>
               </div>
 
-              <div class="border-top border-dark d-inline-block mt-4">
+              <div className="border-top border-dark d-inline-block mt-4">
                 {" "}
                 <h2>Rol de Empleado y Datos de Nomina</h2>
               </div>
 
-              <div class="row justify-content-md-center mt-4">
+              <div className="row justify-content-md-center mt-4">
                 <div className="col-4">
                   <div className=" flex-column">
                     <label htmlFor="rol-empleado">Rol Empleado</label>
