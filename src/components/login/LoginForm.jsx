@@ -2,7 +2,7 @@ import React from "react";
 import LogginButtons from "./LoginButtons";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
-import API_ROUTES from "../../configs/ApiEndpoints.mjs";
+import API_ROUTES from "../../configs/ApiEndpoints.js";
 import { changeStateVerification } from "../../redux/slices/login/authLoginSlice";
 import WindowAlert from "../miniComponents/WindowAlert";
 

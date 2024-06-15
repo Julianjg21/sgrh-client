@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { Component } from "react";
 import LoginPage from "./pages/LoginPage";
-import MainMenuLayout from "./layouts/MainMenu/MainMenuLayout";
-import API_ROUTES from "./configs/ApiEndpoints.mjs";
+import MainMenuPage from "./pages/MainMenuPage.jsx";
+import API_ROUTES from "./configs/ApiEndpoints.js";
 import {
   BrowserRouter as Router,
   Routes,
@@ -66,7 +66,7 @@ class App extends Component {
               path="/menu"
               element={
                 this.props.stateVerification ? ( // Conditional rendering based on verification state
-                  <MainMenuLayout />
+                  <MainMenuPage />
                 ) : (
                   <Navigate to="/" /> // Redirect to login page if not verified
                 )

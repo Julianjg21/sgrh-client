@@ -1,7 +1,7 @@
 import React from "react";
 import UserSearch from "../UserSearch";
 import WindowAlert from "../../../miniComponents/WindowAlert";
-import API_ROUTES from "../../../../configs/ApiEndpoints.mjs";
+import API_ROUTES from "../../../../configs/ApiEndpoints.js";
 class UserManagement extends React.Component {
   constructor(props) {
     super(props);
@@ -40,11 +40,10 @@ class UserManagement extends React.Component {
   //function that send the form information
   handleSubmit(event) {
     event.preventDefault(); //prevents page reloading
-   
 
     const data = this.state;
 
-    fetch(API_ROUTES.createUser , {
+    fetch(API_ROUTES.createUser, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -77,18 +76,18 @@ class UserManagement extends React.Component {
         <div className="container">
           <div>
             {this.state.windowAlert && (
-             <div className="container  position-fixed alert-menu"> <WindowAlert
-             buttonText="OK"
-             infoText="Usuario creado con exito!!"
-                dimensions="position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-success border-2 windowAler"
-                disable={this.handleWindowAlert}
-           /> </div>
+              <div className="container  position-fixed alert-menu">
+                {" "}
+                <WindowAlert
+                  buttonText="OK"
+                  infoText="Usuario creado con exito!!"
+                  dimensions="position-relative   alert-menu2  col-lg-3 h-75 bg-white d-flex flex-column justify-content-center align-items-center  border rounded border-success border-2 windowAler"
+                  disable={this.handleWindowAlert}
+                />{" "}
+              </div>
             )}
           </div>
 
-          
-
-         
           <h1>Datos Personales</h1>
           <div className="container fluid p-0 mt-4">
             <form onSubmit={this.handleSubmit}>
@@ -315,7 +314,7 @@ class UserManagement extends React.Component {
     } else {
       return (
         <div>
-          <UserSearch component="editUser"/>
+          <UserSearch component="editUser" />
         </div>
       );
     }

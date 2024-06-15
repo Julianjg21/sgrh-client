@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import API_ROUTES from "../../../../configs/ApiEndpoints.mjs";
+import API_ROUTES from "../../../../configs/ApiEndpoints.js";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WindowAlert from "../../../miniComponents/WindowAlert";

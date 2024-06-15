@@ -6,7 +6,6 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        {" "}
         <LoginLayout
           loginForm={LoginForm} /*The LoginForm component is passed as a prop*/
         />

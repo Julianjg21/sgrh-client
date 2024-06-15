@@ -1,6 +1,6 @@
 import React from "react";
 import EditUser from "./userManagement/EditUser";
-import API_ROUTES from "../../../configs/ApiEndpoints.mjs";
+import API_ROUTES from "../../../configs/ApiEndpoints.js";
 import WindowAlert from "../../miniComponents/WindowAlert";
 import UploadDocumentation from "./employeeDocumentation/UploadDocumentation";
 import Nomina from "./Nomina/Nomina";
@@ -52,12 +52,14 @@ class UserSearch extends React.Component {
     if (this.state.renderEditUser === true) {
       if (this.props.component === "editUser") {
         return <EditUser user={this.state.userFound} />;
-      } if (this.props.component === "uploadDocumentation") {
-        return <UploadDocumentation  user={this.state.userFound}/>;
-      } if (this.props.component === "Nomina") {
+      }
+      if (this.props.component === "uploadDocumentation") {
+        return <UploadDocumentation user={this.state.userFound} />;
+      }
+      if (this.props.component === "Nomina") {
         return <Nomina user={this.state.userFound} />;
       }
-} else {
+    } else {
       return (
         <div className="container">
           <div>

@@ -1,5 +1,5 @@
 import React from "react";
-import API_ROUTES from "../../../../configs/ApiEndpoints.mjs";
+import API_ROUTES from "../../../../configs/ApiEndpoints.js";
 import WindowAlert from "../../../miniComponents/WindowAlert";
 
 class UploadDocumentation extends React.Component {
