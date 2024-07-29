@@ -82,7 +82,7 @@ class UploadDocumentation extends React.Component {
     const idUser = this.state.identification;
     const column = columnParam;
 
-    fetch(`http://localhost:3080/download?column=${column}&idUser=${idUser}`)
+    fetch(`${API_ROUTES.downloadDocument}/downloa..d?column=${column}&idUser=${idUser}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
