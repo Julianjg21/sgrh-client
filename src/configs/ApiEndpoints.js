@@ -16,7 +16,7 @@ const API_ROUTES = {
     
     //UploadDocumentation
     uploadDocument: `${API_BASE_URL}/upload`,
-
+    downloadDocument: `${API_BASE_URL}`
 };
 
 export default API_ROUTES;
